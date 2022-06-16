@@ -1,0 +1,119 @@
+_G.Toggle = true
+--change to false to turn off
+
+task.spawn(function()
+  wait(4)
+  local plr = game:GetService("Players").LocalPlayer
+  while task.wait() do
+    if _G.Toggle == true then
+      if game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value ~= true then
+          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+          game:GetService("ReplicatedStorage").Server:FireServer("ClearActive")
+          game:GetService("ReplicatedStorage").Server:FireServer("ClearPassive")
+        wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Punch")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Punch")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Scroll")
+          wait(.1)
+          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Scroll")
+          wait(1)
+          for i,v in pairs (game:GetService("Workspace").Enemies["Virus Boss"]:GetDescendants()) do
+            if v.Name == "Enemy" and not v:FindFirstChild("EnemyDefeat") then
+              game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.EnemyLocation.CFrame
+            end
+          end
+          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
+          wait(.1)
+          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
+          wait(.1)
+          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
+          wait(3)
+      elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value == true then
+          game:GetService("ReplicatedStorage").Server:FireServer("UseItem",2)
+          game:GetService("ReplicatedStorage").Server:FireServer("UseItem",1)
+          local Player = game.Players.LocalPlayer
+              for i,v in pairs(game.Workspace.CombatFolder[Player.Name]:GetDescendants()) do
+                  if v.Name == "SwordOrb_2" or "SwordOrb" then
+                    pcall(function()Player.Character.HumanoidRootPart.CFrame = v.Base.CFrame*CFrame.new(0,2,0)
+                    end)
+                    local vel = Instance.new("BodyVelocity")
+                    vel.MaxForce = Vector3.new(0,999999,0)
+                    vel.Velocity = Vector3.new(0,0,0)
+                    vel.Parent = Player.Character.HumanoidRootPart
+            end
+          end
+      end
+  end
+end
+end)
+
+task.spawn(function()
+  while task.wait() do
+    if _G.Toggle == true then
+        for i,v in pairs(game:GetService("Workspace").MaterialGivers["Sky Cherry"]:GetDescendants()) do
+          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+              wait(0)
+              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+          end
+      end
+      for i,v in pairs(game:GetService("Workspace").MaterialGivers["Rocky Fruit"]:GetDescendants()) do
+        if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+            firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+            wait(0)
+            firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+        end
+    end
+  end
+  end
+end)
+
+task.spawn(function()
+  if _G.Toggle == true then
+    local old
+  old = hookmetamethod(game,"__namecall",function(self,...)
+    local method = getnamecallmethod()
+    if method:lower() == "fireserver" and not checkcaller() then
+        local args = {...}
+        if args[3] == "Enemy" or (tostring(self) == "StatsChange" and args[1] == "Level") then
+            return nil
+        end
+    end
+    return old(self,...)
+  end)
+end
+end)
+
+task.spawn(function()
+  while task.wait() do
+    wait(2)
+  local Mana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").Mana.Value
+  local CurrentMana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").CurrentMana.Value
+
+  if CurrentMana <= (Mana/2.5) then
+    wait(1)
+    game:GetService("ReplicatedStorage").Server:FireServer("UseItem",3)
+  end
+end
+end)
+
