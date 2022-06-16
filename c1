@@ -74,6 +74,13 @@ task.spawn(function()
               firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
           end
       end
+  end
+  end
+end)
+
+task.spawn(function()
+  while task.wait() do
+    if _G.Toggle == true then
       for i,v in pairs(game:GetService("Workspace").MaterialGivers["Rocky Fruit"]:GetDescendants()) do
         if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
             firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
@@ -82,6 +89,20 @@ task.spawn(function()
         end
     end
   end
+  end
+end)
+
+task.spawn(function()
+  while task.wait() do
+    if _G.Toggle == true then
+      for i,v in pairs(game:GetService("Workspace").Chests:GetDescendants()) do
+          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+              wait(0.1)
+              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+          end
+      end
+    end
   end
 end)
 
