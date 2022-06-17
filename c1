@@ -1,137 +1,229 @@
 task.spawn(function()
-  wait(4)
-  local plr = game:GetService("Players").LocalPlayer
-  while task.wait() do
-    if _G.Toggle == true then
-      if game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value ~= true then
-          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
-          game:GetService("ReplicatedStorage").Server:FireServer("ClearActive")
-          game:GetService("ReplicatedStorage").Server:FireServer("ClearPassive")
-        wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Punch")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Punch")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
-          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
-          plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Scroll")
-          wait(.1)
-          game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Scroll")
-          wait(1)
-          for i,v in pairs (game:GetService("Workspace").Enemies["Virus Boss"]:GetDescendants()) do
-            if v.Name == "Enemy" and not v:FindFirstChild("EnemyDefeat") then
-              game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.EnemyLocation.CFrame
-            end
-          end
-          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
-          wait(.1)
-          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
-          wait(.1)
-          workspace.Enemies["Virus Boss"].Enemy.CombatTrigger:FireServer("Solo")
-          wait(3)
-      elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value == true then
-          game:GetService("ReplicatedStorage").Server:FireServer("UseItem",2)
-          game:GetService("ReplicatedStorage").Server:FireServer("UseItem",1)
-          local Player = game.Players.LocalPlayer
-              for i,v in pairs(game.Workspace.CombatFolder[Player.Name]:GetDescendants()) do
-                  if v.Name == "SwordOrb_2" or "SwordOrb" then
-                    pcall(function()Player.Character.HumanoidRootPart.CFrame = v.Base.CFrame*CFrame.new(0,2,0)
-                    end)
-                    local vel = Instance.new("BodyVelocity")
-                    vel.MaxForce = Vector3.new(0,999999,0)
-                    vel.Velocity = Vector3.new(0,0,0)
-                    vel.Parent = Player.Character.HumanoidRootPart
-            end
-          end
-      end
-  end
-end
-end)
-
-task.spawn(function()
-  while task.wait() do
-    if _G.Toggle == true then
-        for i,v in pairs(game:GetService("Workspace").MaterialGivers["Sky Cherry"]:GetDescendants()) do
-          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
-              wait(0)
-              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
-          end
-      end
-  end
-  end
-end)
-
-task.spawn(function()
-  while task.wait() do
-    if _G.Toggle == true then
-      for i,v in pairs(game:GetService("Workspace").MaterialGivers["Rocky Fruit"]:GetDescendants()) do
-        if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-            firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
-            wait(0)
-            firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
-        end
+    if _G.Toggle == nil then
+      _G.Toggle = true
     end
-  end
-  end
-end)
-
-task.spawn(function()
-  while task.wait() do
-    if _G.Toggle == true then
-      for i,v in pairs(game:GetService("Workspace").Chests:GetDescendants()) do
-          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
-              wait(0.1)
-              firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
-          end
-      end
-    end
-  end
-end)
-
-task.spawn(function()
-  if _G.Toggle == true then
-    local old
-  old = hookmetamethod(game,"__namecall",function(self,...)
-    local method = getnamecallmethod()
-    if method:lower() == "fireserver" and not checkcaller() then
-        local args = {...}
-        if args[3] == "Enemy" or (tostring(self) == "StatsChange" and args[1] == "Level") then
-            return nil
-        end
-    end
-    return old(self,...)
   end)
-end
-end)
-
-task.spawn(function()
-  while task.wait() do
-    wait(2)
-  local Mana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").Mana.Value
-  local CurrentMana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").CurrentMana.Value
-
-  if CurrentMana <= (Mana/2.5) then
-    wait(1)
-    game:GetService("ReplicatedStorage").Server:FireServer("UseItem",3)
+  
+  task.spawn(function()
+    wait(4)
+    local plr = game:GetService("Players").LocalPlayer
+    while task.wait() do
+      if _G.Toggle == true then
+        local Main = "Barrage"
+        local Enemy = "Challenger"
+        if game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Shot of Imagination") then
+            Main = "Shot of Imagination"
+        end
+        if plr and game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Mana Potion").Value < 50 and game:GetService("Players").LocalPlayer.leaderstats.Gold.Value > 100000 then
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+      end
+      if plr and game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Power Potion").Value < 50 and game:GetService("Players").LocalPlayer.leaderstats.Gold.Value > 100000 then
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy5",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+      end
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value ~= true then
+            if game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Power Potion").Value >= 50 and game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Mana Potion").Value >= 50 then
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+                game:GetService("ReplicatedStorage").Server:FireServer("ClearActive")
+                game:GetService("ReplicatedStorage").Server:FireServer("ClearPassive")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem",Main)
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem",Main)
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Power Potion")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Power Potion")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+                plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+                if game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Rocky Fruit").Value >= 10 then
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+                wait(.1)
+                game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+                wait(1)
+                else
+                    wait(.1)
+                    game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Potion")
+                    wait(.1)
+                    game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Mana Potion")
+                    wait(.1)
+                    game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+                    wait(.1)
+                    game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+                    wait(1)
+                end
+            else
+            plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+            game:GetService("ReplicatedStorage").Server:FireServer("ClearActive")
+            game:GetService("ReplicatedStorage").Server:FireServer("ClearPassive")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem",Main)
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem",Main)
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Shadow Fruit")
+            plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Sky Cherry")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Kings' Crown")
+            plr.Character.HumanoidRootPart.CFrame = CFrame.new(48, 34, -76, -1, 0, 0, 0, 1, 0, 0, 0, -1)
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Rocky Fruit")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+            wait(.1)
+            game:GetService("ReplicatedStorage").Server:FireServer("SetupItem","Heart Fruit")
+            wait(1)
+            end
+            if plr:FindFirstChild("PlayerData").Equipped.Passive1.Value == "Shadow Fruit" and plr:FindFirstChild("PlayerData").Equipped.Passive2.Value == "Kings' Crown" and plr:FindFirstChild("PlayerData").Equipped.Passive3.Value == "Heart Fruit" then
+            for i,v in pairs (game:GetService("Workspace").Enemies[Enemy]:GetDescendants()) do
+              if v.Name == "Enemy" and not v:FindFirstChild("EnemyDefeat") then
+                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = v.EnemyLocation.CFrame
+              end
+            end
+            workspace.Enemies[Enemy].Enemy.CombatTrigger:FireServer("Solo")
+            wait(.1)
+            workspace.Enemies[Enemy].Enemy.CombatTrigger:FireServer("Solo")
+            wait(.1)
+            workspace.Enemies[Enemy].Enemy.CombatTrigger:FireServer("Solo")
+            wait(3)
+        end
+        elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("InCombat").Value == true then
+            game:GetService("ReplicatedStorage").Server:FireServer("UseItem",2)
+            game:GetService("ReplicatedStorage").Server:FireServer("UseItem",1)
+            local Player = game.Players.LocalPlayer
+                for i,v in pairs(game.Workspace:FindFirstChild("CombatFolder")[Player.Name]:GetDescendants()) do
+                    if v:FindFirstChild("Base") then
+                      pcall(function()Player.Character.HumanoidRootPart.CFrame = v.Base.CFrame*CFrame.new(0,2,0)
+                      end)
+                      if not Player.Character.HumanoidRootPart:FindFirstChild("STAYINAIR") then
+                      local vel = Instance.new("BodyVelocity")
+                      vel.Name = "STAYINAIR"
+                      vel.MaxForce = Vector3.new(0,999999,0)
+                      vel.Velocity = Vector3.new(0,0,0)
+                      vel.Parent = Player.Character.HumanoidRootPart
+                      end
+              end
+            end
+        end
+    end
   end
-end
-end)
+  end)
+  
+  task.spawn(function()
+    while task.wait() do
+      if _G.Toggle == true then
+          for i,v in pairs(game:GetService("Workspace").MaterialGivers["Sky Cherry"]:GetDescendants()) do
+            if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+                firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),0)
+                wait(0.1)
+                firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),1)
+            end
+        end
+    end
+    end
+  end)
+  
+  task.spawn(function()
+    while task.wait() do
+      if _G.Toggle == true then
+        for i,v in pairs(game:GetService("Workspace").MaterialGivers["Rocky Fruit"]:GetDescendants()) do
+          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+              firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),0)
+              wait(0.1)
+              firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),1)
+          end
+      end
+    end
+    end
+  end)
+  
+  task.spawn(function()
+    while task.wait() do
+      if _G.Toggle == true then
+        for i,v in pairs(game:GetService("Workspace").Chests:GetDescendants()) do
+            if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
+                firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
+                wait(0.1)
+                firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
+            end
+        end
+      end
+    end
+  end)
+  
+  task.spawn(function()
+    if _G.Toggle == true then
+      local old
+    old = hookmetamethod(game,"__namecall",function(self,...)
+      local method = getnamecallmethod()
+      if method:lower() == "fireserver" and not checkcaller() then
+          local args = {...}
+          if args[3] == "Enemy" or (tostring(self) == "StatsChange" and args[1] == "Level") then
+              return nil
+          end
+      end
+      return old(self,...)
+    end)
+  end
+  end)
+  
+  task.spawn(function()
+    while task.wait() do
+      wait(.5)
+    local Mana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").Mana.Value
+    local CurrentMana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").CurrentMana.Value
+        
+    if CurrentMana <= (Mana/2) then
+      game:GetService("ReplicatedStorage").Server:FireServer("UseItem",3)
+    end
+  end
+  end)
 
+  task.spawn(function()
+    wait(1)
+    if game:GetService("Players").LocalPlayer.leaderstats.Gold.Value > 100 then
+        if not game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Power Potion") then
+            game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy1",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
+        end
+    end
+  end)
