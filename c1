@@ -226,4 +226,9 @@ task.spawn(function()
             game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy1",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Power Potion"])
         end
     end
+    if game:GetService("Players").LocalPlayer.leaderstats.Gold.Value > 100 then
+      if not game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Mana Potion") then
+          game:GetService("ReplicatedStorage").Remotes.Effected:FireServer("Buy1",workspace.Stalls["Initus Bay"]["Potion Shop"].Shop["Mana Potion"])
+      end
+  end
   end)
