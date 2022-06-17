@@ -148,48 +148,7 @@ task.spawn(function()
     end
   end
   end)
-  
-  task.spawn(function()
-    while task.wait() do
-      if _G.Toggle == true then
-          for i,v in pairs(game:GetService("Workspace").MaterialGivers["Sky Cherry"]:GetDescendants()) do
-            if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-                firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),0)
-                wait(0.1)
-                firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),1)
-            end
-        end
-    end
-    end
-  end)
-  
-  task.spawn(function()
-    while task.wait() do
-      if _G.Toggle == true then
-        for i,v in pairs(game:GetService("Workspace").MaterialGivers["Rocky Fruit"]:GetDescendants()) do
-          if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-              firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),0)
-              wait(0.1)
-              firetouchinterest(v,game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart"),1)
-          end
-      end
-    end
-    end
-  end)
-  
-  task.spawn(function()
-    while task.wait() do
-      if _G.Toggle == true then
-        for i,v in pairs(game:GetService("Workspace").Chests:GetDescendants()) do
-            if v.Name == "Giver" and v:FindFirstChild("TouchInterest") then
-                firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,0)
-                wait(0.1)
-                firetouchinterest(v,game.Players.LocalPlayer.Character.HumanoidRootPart,1)
-            end
-        end
-      end
-    end
-  end)
+
   
   task.spawn(function()
     if _G.Toggle == true then
@@ -210,12 +169,14 @@ task.spawn(function()
   task.spawn(function()
     while task.wait() do
       wait(.5)
-    local Mana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").Mana.Value
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats") then
+    local Mana = game:GetService("Players").LocalPlayer.Character.Stats:FindFirstChild("Mana").Value
     local CurrentMana = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Stats").CurrentMana.Value
         
     if CurrentMana <= (Mana/2) then
       game:GetService("ReplicatedStorage").Server:FireServer("UseItem",3)
     end
+  end
   end
   end)
 
