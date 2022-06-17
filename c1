@@ -10,7 +10,7 @@ task.spawn(function()
     while task.wait() do
       if _G.Toggle == true then
         local Main = "Barrage"
-        local Enemy = "Challenger"
+        local Enemy = "Samurai Island 3_Special"
         if game:GetService("Players").LocalPlayer.PlayerData.Inventory:FindFirstChild("Shot of Imagination") then
             Main = "Shot of Imagination"
         end
